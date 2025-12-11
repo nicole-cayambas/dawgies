@@ -23,6 +23,10 @@ npm run dev
 
 # In another terminal, start Laravel
 php artisan serve
+
+# Make sure to run 
+php artisan queue:work 
+# for asynchronous caching so data loads faster
 ```
 
 ### Initial Setup
