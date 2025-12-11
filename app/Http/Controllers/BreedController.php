@@ -13,7 +13,7 @@ class BreedController extends Controller
         $breeds = Breed::paginate(
             page: $request->get('page', 1),
             perPage: 6,
-            apply: [Breed::class, 'getImages']
+            apply: [Breed::class, 'getExtraData']
         );
 
         return Inertia::render('dashboard', [

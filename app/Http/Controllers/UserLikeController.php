@@ -15,11 +15,11 @@ class UserLikeController extends Controller
         ]);
 
         $user = Auth::user();
-        $itemId = $request->breed;
+        $breed = $request->breed;
 
         // Check if like exists
         $like = UserLike::where('user_id', $user->id)
-                        ->where('breed', $itemId)
+                        ->where('breed', $breed)
                         ->first();
 
         if ($like) {
@@ -28,14 +28,14 @@ class UserLikeController extends Controller
         } else {
             UserLike::create([
                 'user_id' => $user->id,
-                'breed' => $itemId,
+                'breed' => $breed,
             ]);
             $status = 'liked';
         }
 
         return response()->json([
             'status' => $status,
-            'breed' => $itemId,
+            'breed' => $breed,
         ]);
     }
 }

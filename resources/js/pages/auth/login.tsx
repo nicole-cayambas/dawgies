@@ -6,10 +6,12 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Spinner } from '@/components/ui/spinner';
 import AuthLayout from '@/layouts/auth-layout';
+import { initCsrf } from '@/lib/initCsrf';
 import { register } from '@/routes';
 import { store } from '@/routes/login';
 import { request } from '@/routes/password';
 import { Form, Head } from '@inertiajs/react';
+import { useEffect } from 'react';
 
 interface LoginProps {
     status?: string;
@@ -22,6 +24,11 @@ export default function Login({
     canResetPassword,
     canRegister,
 }: LoginProps) {
+    
+    useEffect(() => {
+        initCsrf().catch((err) => console.error(err));
+    }, []);
+
     return (
         <AuthLayout
             title="Log in to your account"

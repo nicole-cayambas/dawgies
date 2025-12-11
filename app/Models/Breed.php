@@ -114,14 +114,27 @@ class Breed
         );
     }
 
-    public static function getImages(Collection &$breeds): Collection
+    public static function getExtraData(Collection &$breeds): Collection
     {
+        // Get images
         foreach ($breeds as &$breed) {
-            $breedModel = self::find($breed->name, 'random');
+            $breedModel = self::find($breed->name, 1);
             if ($breedModel) {
                 $breed->image = $breedModel->image;
             }
         }
+
+        // Get likes count
+        $extractedNames = $breeds->pluck('name')->toArray();
+        $breedsWithLikes = UserLike::whereIn('breed', $extractedNames)
+            ->select('breed', \DB::raw('count(*) as like_count'))
+            ->groupBy('breed')
+            ->pluck('like_count', 'breed')
+            ->toArray();
+        foreach ($breeds as &$breed) {
+            $breed->likes = $breedsWithLikes[$breed->name] ?? 0;
+        }
+
         return $breeds;
     }
 }
