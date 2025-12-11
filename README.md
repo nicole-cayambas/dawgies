@@ -44,7 +44,7 @@ php artisan serve
 
 ## 🛠️ Tech Stack
 
-- **Backend**: PHP 10 / Laravel 10
+- **Backend**: PHP 8.3 / Laravel 12
 - **Frontend**: Inertia.js + React
 - **Styling**: Tailwind CSS
 - **Database**: Sqlite or MySQL, up to you 😉
