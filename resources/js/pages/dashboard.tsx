@@ -1,8 +1,8 @@
-import { PlaceholderPattern } from '@/components/ui/placeholder-pattern';
+import { BreedList } from '@/components/breed/breed';
 import AppLayout from '@/layouts/app-layout';
 import { dashboard } from '@/routes';
-import { type BreadcrumbItem } from '@/types';
-import { Head } from '@inertiajs/react';
+import { BreadcrumbItem } from '@/types';
+import { Head, Link, usePage } from '@inertiajs/react';
 
 const breadcrumbs: BreadcrumbItem[] = [
     {
@@ -12,23 +12,40 @@ const breadcrumbs: BreadcrumbItem[] = [
 ];
 
 export default function Dashboard() {
+    const { breeds } = usePage().props as any;
+    console.log(breeds);
     return (
         <AppLayout breadcrumbs={breadcrumbs}>
             <Head title="Dashboard" />
             <div className="flex h-full flex-1 flex-col gap-4 overflow-x-auto rounded-xl p-4">
-                <div className="grid auto-rows-min gap-4 md:grid-cols-3">
-                    <div className="relative aspect-video overflow-hidden rounded-xl border border-sidebar-border/70 dark:border-sidebar-border">
-                        <PlaceholderPattern className="absolute inset-0 size-full stroke-neutral-900/20 dark:stroke-neutral-100/20" />
-                    </div>
-                    <div className="relative aspect-video overflow-hidden rounded-xl border border-sidebar-border/70 dark:border-sidebar-border">
-                        <PlaceholderPattern className="absolute inset-0 size-full stroke-neutral-900/20 dark:stroke-neutral-100/20" />
-                    </div>
-                    <div className="relative aspect-video overflow-hidden rounded-xl border border-sidebar-border/70 dark:border-sidebar-border">
-                        <PlaceholderPattern className="absolute inset-0 size-full stroke-neutral-900/20 dark:stroke-neutral-100/20" />
-                    </div>
-                </div>
-                <div className="relative min-h-[100vh] flex-1 overflow-hidden rounded-xl border border-sidebar-border/70 md:min-h-min dark:border-sidebar-border">
-                    <PlaceholderPattern className="absolute inset-0 size-full stroke-neutral-900/20 dark:stroke-neutral-100/20" />
+                <h1 className="mb-4 text-2xl font-bold">Breeds</h1>
+
+                {/* Card grid */}
+                <BreedList breeds={breeds.data} />
+
+                {/* Pagination */}
+                <div className="mt-6 flex items-center justify-center gap-4">
+                    {breeds.current_page > 1 && (
+                        <Link
+                            href={`?page=${breeds.current_page - 1}`}
+                            className="rounded bg-gray-200 px-4 py-2 hover:bg-gray-300"
+                        >
+                            Prev
+                        </Link>
+                    )}
+
+                    <span className="text-gray-700">
+                        Page {breeds.current_page} of {breeds.last_page}
+                    </span>
+
+                    {breeds.current_page < breeds.last_page && (
+                        <Link
+                            href={`?page=${breeds.current_page + 1}`}
+                            className="rounded bg-gray-200 px-4 py-2 hover:bg-gray-300"
+                        >
+                            Next
+                        </Link>
+                    )}
                 </div>
             </div>
         </AppLayout>
