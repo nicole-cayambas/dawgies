@@ -1,15 +1,19 @@
 import api from './api';
 
-let csrfInitialized = false;
+let csrfPromise: Promise<void> | null = null;
 
-export const initCsrf = async () => {
-    if (csrfInitialized) return;
+export const initCsrf = (): Promise<void> => {
+    if (csrfPromise) return csrfPromise; // return existing promise
 
-    try {
-        await api.get('/sanctum/csrf-cookie', { withCredentials: true }); // fetches CSRF cookie
-        csrfInitialized = true;
-    } catch (err) {
-        console.error('Failed to initialize CSRF cookie:', err);
-        throw err;
-    }
+    csrfPromise = api.get('/sanctum/csrf-cookie', { withCredentials: true })
+        .then(() => {
+            // nothing extra to do
+        })
+        .catch((err) => {
+            csrfPromise = null; // reset if failed, so we can retry
+            console.error('Failed to initialize CSRF cookie:', err);
+            throw err;
+        });
+
+    return csrfPromise;
 };

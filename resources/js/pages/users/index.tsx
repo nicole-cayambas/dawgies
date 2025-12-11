@@ -21,8 +21,8 @@ export default function Users() {
             <div className="p-6">
                 <h1 className="mb-4 text-2xl font-bold">Users</h1>
 
-                <table className="min-w-full overflow-hidden rounded-lg bg-white shadow">
-                    <thead className="bg-gray-100">
+                <table className="min-w-full overflow-hidden rounded-lg bg-background shadow">
+                    <thead className="bg-background">
                         <tr>
                             <th className="px-4 py-2 text-left">ID</th>
                             <th className="px-4 py-2 text-left">Name</th>

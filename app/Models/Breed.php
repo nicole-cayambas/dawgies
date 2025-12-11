@@ -135,6 +135,18 @@ class Breed
             $breed->likes = $breedsWithLikes[$breed->name] ?? 0;
         }
 
+        // Update hasLiked
+        $user = \Auth::user();
+        if ($user) {
+            $userLikes = UserLike::where('user_id', $user->id)
+                ->whereIn('breed', $extractedNames)
+                ->pluck('breed')
+                ->toArray();
+            foreach ($breeds as &$breed) {
+                $breed->hasLiked = in_array($breed->name, $userLikes);
+            }
+        }
+
         return $breeds;
     }
 }

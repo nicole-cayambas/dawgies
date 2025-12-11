@@ -24,9 +24,10 @@ export default function Login({
     canResetPassword,
     canRegister,
 }: LoginProps) {
-    
+
     useEffect(() => {
-        initCsrf().catch((err) => console.error(err));
+        // fire it on mount, safely
+        initCsrf().catch(err => console.error(err));
     }, []);
 
     return (
