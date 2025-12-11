@@ -13,7 +13,7 @@ const breadcrumbs: BreadcrumbItem[] = [
 
 export default function Dashboard() {
     const { breeds } = usePage().props as any;
-    console.log(breeds);
+    
     return (
         <AppLayout breadcrumbs={breadcrumbs}>
             <Head title="Dashboard" />
