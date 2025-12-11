@@ -50,4 +50,16 @@ class User extends Authenticatable
             'two_factor_confirmed_at' => 'datetime',
         ];
     }
+
+    // public static function withLikes()
+    // {
+    //     return self::withCount(['likes as liked_breeds' => function ($query) {
+    //         $query->select(\DB::raw('GROUP_CONCAT(breed)'));
+    //     }]);
+    // }
+
+    public function likes()
+    {
+        return $this->hasMany(UserLike::class);
+    }
 }

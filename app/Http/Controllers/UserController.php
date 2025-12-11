@@ -12,7 +12,7 @@ class UserController extends Controller
      */
     public function index(Request $request)
     {
-        $users = User::paginate(
+        $users = User::with('likes')->paginate(
             page: $request->get('page', 1),
             perPage: 10,
         );

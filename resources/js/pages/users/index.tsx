@@ -27,6 +27,7 @@ export default function Users() {
                             <th className="px-4 py-2 text-left">ID</th>
                             <th className="px-4 py-2 text-left">Name</th>
                             <th className="px-4 py-2 text-left">Email</th>
+                            <th className="px-4 py-2 text-left">Likes</th>
                             <th className="px-4 py-2 text-left">Created At</th>
                         </tr>
                     </thead>
@@ -36,6 +37,7 @@ export default function Users() {
                                 <td className="px-4 py-2">{user.id}</td>
                                 <td className="px-4 py-2">{user.name}</td>
                                 <td className="px-4 py-2">{user.email}</td>
+                                <td className="px-4 py-2">{user.likes?.map((like) => like?.breed).join(', ')}</td>
                                 <td className="px-4 py-2">
                                     {new Date(
                                         user.created_at,

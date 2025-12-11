@@ -10,4 +10,9 @@ class UserLike extends Model
         'user_id',
         'breed',
     ];
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
 }
